@@ -55,10 +55,20 @@
 
               <div class="form-group">
                 <button
+                *ngIf="!!!loading"
                   class="btn btn-primary submit-btn btn-block"
                   type="submit"
                   [disabled]="form.invalid || form.pending"
                 >Crear cuenta</button>
+                <button
+                  *ngIf="loading"
+                  disabled
+                  class="btn btn-primary submit-btn btn-block"
+                  type="submit"
+                  [disabled]="form.invalid || form.pending"
+                >
+                <i class="fa fa-spin fa-sync"></i>
+                Wait...</button>
               </div>
               <div class="text-block text-center my-3">
                 <span class="text-small font-weight-semibold">ya tienes una cuenta?</span>

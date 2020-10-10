@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ValidatorsEmail } from '../../validators/email.validator';
 import { UserService } from '../../services/user.service';
@@ -7,25 +7,37 @@ import { Router } from '@angular/router';
 import { AlertService } from '../../services/alert.service';
 
 import Swal from 'sweetalert2';
+import { Store } from '@ngrx/store';
+import { appState } from 'src/app/app.reducer';
+import { Subscription } from 'rxjs';
+import { stopLoading, isLoadig } from 'src/app/shared/ui.actions';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
 
+  public loading: boolean;
   public form: FormGroup;
+  private subscription: Subscription;
 
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
     private router: Router,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private store: Store<appState>
   ){
-    this.makeForm()
+    this.makeForm();
+    this.subscription = this.store.select('ui').subscribe( ui => this.loading = ui.isLoading );
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void{
+    this.subscription.unsubscribe();
   }
 
   public makeForm = (): FormGroup =>
@@ -36,15 +48,20 @@ export class RegisterComponent implements OnInit {
     })
 
   public onSubmit = (): void => {
-    Swal.fire({title: 'Upload', text: 'loading....'});
-    Swal.showLoading();
+    // Swal.fire({title: 'Upload', text: 'loading....'});
+    // Swal.showLoading();
     const data: UserSignUp = this.form.value;
+    this.store.dispatch(isLoadig());
     this.userService.signUpUser(data)
                   .then( res => {
-                    Swal.close();
+                    // Swal.close();
+                    this.store.dispatch(stopLoading());
                     this.router.navigateByUrl('');
                   })
-                  .catch(err => this.alertService.makeAlert('Ups...', err.message, 'error'));
+                  .catch(err => {
+                    this.store.dispatch(stopLoading());
+                    this.alertService.makeAlert('Ups...', err.message, 'error')
+                  });
   }
 
 }
