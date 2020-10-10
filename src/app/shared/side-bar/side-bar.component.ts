@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-side-bar',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SideBarComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private userService: UserService,
+    private router: Router
+  ){}
 
   ngOnInit(): void {
   }
 
+  public signOut = async (): Promise<void> => {
+    await this.userService.signOutUser();
+    this.router.navigateByUrl('/login');
+  }
 }

@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "finance-167a6": {
+      "hosting": {
+        "cashApp": [
+          "finance-167a6"
+        ]
+      }
+    }
+  }
+}

@@ -35,7 +35,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a [routerLink]="['/login']" class="nav-link cursor">
+        <a (click)="signOut()" class="nav-link cursor nav-router">
           <i class="menu-icon fa fa-sign-out-alt"></i>
           <span class="menu-title">Cerrar sesión</span>
         </a>

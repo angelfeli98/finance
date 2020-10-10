@@ -118,8 +118,13 @@
               "devServerTarget": "cashApp:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
-    }},
+    }
+  },
   "defaultProject": "cashApp"
 }
