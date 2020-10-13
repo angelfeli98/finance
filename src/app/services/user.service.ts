@@ -9,12 +9,15 @@ import { first } from 'rxjs/operators';
 
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { Subscription } from 'rxjs';
+import { unsetMoves } from '../entry-exit/entry-exit.actions';
 @Injectable({
     providedIn: 'root'
 })
 export class UserService{
 
     private usersCollection: AngularFirestoreCollection;
+    private userSubscription: Subscription;
 
     constructor(
         private fireAuth: AngularFireAuth,
@@ -24,8 +27,8 @@ export class UserService{
     }
 
     private setUser = (userFb: firebase.User): void => {
-        this.afs.doc(`${userFb.uid}/data`).valueChanges().pipe(first()).subscribe(
-            (data: UserModel) => this.store.dispatch(setUser({user: {...data}}))
+        this.userSubscription = this.afs.doc(`${userFb.uid}/data`).valueChanges().subscribe(
+            (data: any) => this.store.dispatch(setUser({user: {uid: userFb.uid, name: data?.user, email: data?.email}}))
         );
     }
 
@@ -37,7 +40,7 @@ export class UserService{
         });
     }
 
-    public signUpUser = (data: UserSignUp): Promise<any> => {
+    public signUpUser = async (data: UserSignUp): Promise<any> => {
         return this.fireAuth.createUserWithEmailAndPassword(data.email, data.password)
                     .then(  ({user}) =>
                         this.afs.collection(user.uid).doc('data').set(data)
@@ -47,7 +50,6 @@ export class UserService{
     public singInUser = async (data: UserSignIn): Promise<void> => {
         try {
             const {user} = await this.fireAuth.signInWithEmailAndPassword(data.email, data.password);
-            this.setUser(user);
         } catch (error) {
             throw new Error('ERROR');
         }
@@ -55,6 +57,8 @@ export class UserService{
 
     public signOutUser = (): void => {
         this.fireAuth.signOut();
+        this.userSubscription.unsubscribe();
         this.store.dispatch(unsetUser());
+        this.store.dispatch(unsetMoves());
     }
 }

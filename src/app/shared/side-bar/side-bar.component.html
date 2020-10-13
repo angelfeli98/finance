@@ -5,12 +5,12 @@
         <div class="nav-link">
           <div class="user-wrapper">
             <div class="profile-image">
-              <img src="assets/images/faces/face1.jpg" alt="profile image">
+              <img [src]="''|img " alt="profile image">
             </div>
             <div class="text-wrapper">
-              <p class="profile-name">Cristobal Colón</p>
+              <p class="profile-name">{{ user?.name }}</p>
               <div>
-                <small class="designation text-muted">Gerente</small>
+                <small class="designation text-muted">{{ user?.email }}</small>
               </div>
             </div>
           </div>

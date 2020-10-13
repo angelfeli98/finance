@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   public signIn = (): void => {
     this.store.dispatch(isLoadig());
     const data = this.form.value;
-    if(this.form.valid){
+    if (this.form.valid){
       this.userService.singInUser(data)
                     .then(res => {
                       this.store.dispatch(stopLoading());

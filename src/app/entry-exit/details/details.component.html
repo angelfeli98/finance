@@ -8,19 +8,25 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th>Descripción</th>
-                  <th>Monto</th>
-                  <th>Tipo</th>
+                  <th>Description</th>
+                  <th>Mount</th>
+                  <th>Type</th>
                   <th></th>
                 </tr>
               </thead>
 
-              <tbody>
-                <tr>
-                  <td>Descripción</td>
-                  <td>Monto</td>
-                  <td>Tipo</td>
-                  <td>acciones</td>
+              <tbody *ngIf="moves.length > 0">
+                <tr *ngFor="let move of moves | order">
+                  <td>{{ move?.description }}</td>
+                  <td>{{ move?.mount | currency}}</td>
+                  <td [ngClass]="{'text-danger': move.type == 'exit', 'text-success': move.type =='entry'}">
+                    {{ move?.type | titlecase }}
+                  </td>
+                  <td>
+                    <button (click)="removeItem(move.uid)" class="btn btn-outline-danger">
+                      <i class="fa fa-trash"> Delete</i>
+                    </button>
+                  </td>
                 </tr>
               </tbody>
 

@@ -5,6 +5,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { PipeModule } from '../pipes/pipe.module';
 
 @NgModule({
     declarations: [
@@ -14,7 +15,8 @@ import { RouterModule } from '@angular/router';
     ],
     imports: [
         CommonModule,
-        RouterModule
+        RouterModule,
+        PipeModule
     ],
     exports: [
         FooterComponent,

@@ -3,51 +3,78 @@
     <div class="col-12">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Agregar Ingreso / Egreso</h4>
+            <h4 class="card-title">Add Entry / Exit</h4>
             <p class="card-description">
-              Especifique el monto y el tipo
+              You have to especify the type and mount
             </p>
 
-            <form>
+            <form
+              [formGroup]="form"
+              (ngSubmit)="onSubmit()"
+            >
               <div class="form-group">
-                <label>Descripción</label>
+                <label>Description</label>
                 <input type="text"
+                        formControlName="description"
                        class="form-control"
-                       placeholder="Descripción"
+                       placeholder="Description"
                        name="descripcion">
               </div>
 
               <div class="form-group">
-                  <label>Monto</label>
+                  <label>Mount</label>
                   <input type="number"
                          class="form-control"
-                         placeholder="Monto"
+                         formControlName="mount"
+                         placeholder="Mount"
                          name="monto">
                     <p>
-                      Debe de ser un monto positivo
+                      It should be positive
                     </p>
                 </div>
 
               <div class="form-group">
-                  <label>Tipo</label>
+                  <label>Type</label>
                   <br>
-                  <button type="button" class="btn btn-primary btn-block">Ingreso</button>
+                  <select
+                    formControlName="type"
+                    class="form-control"
+                  >
+                    <option value="entry">Entry</option>
+                    <option value="exit">Exit</option>
+                  </select>
+                  <!-- <button type="button" class="btn btn-primary btn-block">Entry</button> -->
                   <!-- <button type="button" class="btn btn-warning btn-block">Egreso</button> -->
               </div>
 
               <hr>
-              <button type="button" class="btn btn-success mr-2">
+              <button
+                *ngIf="!!!loading"
+                [disabled]="form.invalid"
+                class="btn btn-success mr-2"
+                type="submit"
+                >
                 <i class="fa fa-save"></i>
-                Agregar
+                Add
               </button>
-
+              <button
+              *ngIf="loading"
+                disabled
+                class="btn btn-success mr-2"
+                >
+                <i class="fa fa-spin fa-sync"></i>
+                Saving...
+              </button>
               <!--
                 <button disabled class="btn btn-success mr-2">
                   <i class="fa fa-spin fa-sync"></i>
                   Espere por favor...
                 </button>
               -->
-              <button type="reset" class="btn btn-light">Cancelar</button>
+              <button
+                type="reset"
+                class="btn btn-light"
+              >Cancel</button>
 
             </form>
           </div>
