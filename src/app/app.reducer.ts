@@ -9,11 +9,11 @@ import { EntryExitState, movesReducer } from './entry-exit/entry-exit.reducer';
 export interface appState{
     ui: stateUi;
     auth: authState;
-    moves: EntryExitState;
+    // moves: EntryExitState;
 }
 
 export const appReducer: ActionReducerMap<appState> = {
     ui: uiReducer,
     auth: authReducer,
-    moves: movesReducer
+    // moves: movesReducer
 };

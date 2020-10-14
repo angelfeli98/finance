@@ -4,6 +4,7 @@ import { appState } from 'src/app/app.reducer';
 import { Move } from '../../interfaces/moves.interface';
 import { Subscription } from 'rxjs';
 import { EntryExitSevice } from '../../services/entry-exit.service';
+import { appStateWithMoves } from '../entry-exit.reducer';
 
 @Component({
   selector: 'app-details',
@@ -16,7 +17,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
 
   constructor(
-    private store: Store<appState>,
+    private store: Store<appStateWithMoves>,
     private eeS: EntryExitSevice,
   ){
     this.moves = [];

@@ -2,10 +2,16 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import { Move } from '../interfaces/moves.interface';
 import { setMoves, unsetMoves } from './entry-exit.actions';
+import { appState } from '../app.reducer';
 
 // tslint:disable-next-line: no-empty-interface
 export interface EntryExitState{
     moves: Move[];
+}
+
+// tslint:disable-next-line: class-name
+export interface appStateWithMoves extends appState{
+    moves: EntryExitState;
 }
 
 const initSate: EntryExitState = {

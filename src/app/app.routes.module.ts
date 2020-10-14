@@ -5,17 +5,17 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DASHBOARDROUTES, DashboardChildrenModule } from './dashboard/dashboard.module';
+import { AuthRoutes } from './auth/auth-routes.module';
 
 const APPROUTES: Routes = [
-    { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
     { path: '**', pathMatch: 'full', redirectTo: '' }
 ];
 
 @NgModule({
     imports: [
         RouterModule.forRoot(APPROUTES),
-        DashboardChildrenModule
+        AuthRoutes,
+        DashboardChildrenModule,
     ],
     exports: [
         RouterModule

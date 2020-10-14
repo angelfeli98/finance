@@ -7,6 +7,7 @@ import { appState } from '../../app.reducer';
 
 import { ChartOptions, ChartType } from 'chart.js';
 import { Label } from 'ng2-charts';
+import { appStateWithMoves } from '../entry-exit.reducer';
 
 @Component({
   selector: 'app-stadistic',
@@ -48,7 +49,7 @@ export class StadisticComponent implements OnInit, OnDestroy{
   ];
 
   constructor(
-    private store: Store<appState>
+    private store: Store<appStateWithMoves>
   ){
     this.pieChartLegend = true;
     this.pieChartType = 'pie';

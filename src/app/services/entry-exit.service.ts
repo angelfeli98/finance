@@ -25,9 +25,9 @@ export class EntryExitSevice{
     ){
         this.store.select('auth')
         .pipe(  filter( res => res?.user !== null ),
-                tap(auth => this.user = auth.user),
+                tap(auth => this.user = auth?.user),
                 switchMap( (value: authState, index: number) =>
-                    this.afs.doc(`${this.user.uid}/moves`).collection('entry-exit').valueChanges()
+                    this.afs.doc(`${this.user?.uid}/moves`).collection('entry-exit').valueChanges()
         )).subscribe( (moves: Move[]) =>
             this.store.dispatch(setMoves({moves}))
         );

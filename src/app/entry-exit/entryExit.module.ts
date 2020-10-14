@@ -7,6 +7,8 @@ import { PipeModule } from '../pipes/pipe.module';
 import { StadisticComponent } from './stadistic/stadistic.component';
 
 import { ChartsModule } from 'ng2-charts';
+import { StoreModule } from '@ngrx/store';
+import { movesReducer } from './entry-exit.reducer';
 
 @NgModule({
     declarations: [
@@ -18,7 +20,8 @@ import { ChartsModule } from 'ng2-charts';
         CommonModule,
         ReactiveFormsModule,
         PipeModule,
-        ChartsModule
+        ChartsModule,
+        StoreModule.forFeature('moves', movesReducer),
     ],
     exports: [
         EntryExitComponent,

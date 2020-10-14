@@ -7,7 +7,5 @@ export const environment = {
     projectId: 'finance-167a6',
     storageBucket: 'finance-167a6.appspot.com',
     messagingSenderId: '906327053225',
-    appId: '1:906327053225:web:5605db095ed9a85b1a6ab8',
-    measurementId: 'G-PC58SCE3F3'
   }
 };

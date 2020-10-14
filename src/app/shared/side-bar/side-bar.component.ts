@@ -21,7 +21,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
     private router: Router,
     private store: Store<appState>
   ){
-    this.subs = this.store.select('auth').subscribe(({user}) => this.user = user);
+    this.subs = this.store.select('auth').subscribe(auth => this.user = auth?.user);
   }
 
   ngOnInit(): void {
